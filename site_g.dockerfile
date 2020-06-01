@@ -13,4 +13,4 @@ RUN echo root:root123 | chpasswd
 RUN /usr/bin/ssh-keygen -A
 RUN ssh-keygen -t rsa -b 4096 -f  /etc/ssh/ssh_host_key
 
-CMD ["sh","-c","ip route add 123.45.2.0/24 via 123.45.1.101 ; /usr/sbin/sshd -D"]
+CMD ["sh","-c","ip route add 123.45.2.0/24 via 123.45.1.100 ; /usr/sbin/sshd -D"]
