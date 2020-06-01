@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+
+  site_g:
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: .
+      dockerfile: site_g.dockerfile
+    ports:
+      - "60622:22"
+    tty: true
+    networks:
+      default:
+        ipv4_address: 172.20.0.127
+      g-ext-net:
+        ipv4_address: 123.45.1.101
+    hostname: site_G
+  
+  site_h:
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: .
+      dockerfile: site_h.dockerfile
+    ports:
+      - "60722:22"
+    tty: true
+    networks:
+      default:
+        ipv4_address: 172.20.0.128
+      h-ext-net:
+        ipv4_address: 123.45.2.101
+    hostname: site_H
+
+  site_i:
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: .
+      dockerfile: site_i.dockerfile
+    ports:
+      - "60822:22"
+    tty: true
+    networks:
+      default:
+        ipv4_address: 172.20.0.129
+      g-ext-net:
+        ipv4_address: 123.45.1.100
+      h-ext-net:
+        ipv4_address: 123.45.2.100
+    hostname: site_I
+  
+networks:
+  default:
+    external:
+      name: quickstart_default
+  g-ext-net:
+    ipam:
+      config:
+        - subnet: 123.45.1.0/24
+  h-ext-net:
+    ipam:
+      config:
+        - subnet: 123.45.2.0/24
